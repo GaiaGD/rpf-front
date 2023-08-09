@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 import Center from "./Center";
 import Button from "./Button"
+import ButtonLink from "./ButtonLink";
 
 const Bg = styled.div`
     background-color: #064e3b;
@@ -33,23 +34,23 @@ const Column = styled.div`
     flex-direction
 `
 
-export default function Featured () {
+export default function Featured({product}) {
     return (
         <Bg>
             <Center>
                 <ColumnsWrapper>
                     <Column>
                         <div>
-                            <Title>Featured Product</Title>
-                            <p>Lorem Ipsum</p>
+                            <Title>{product.name}</Title>
+                            <p>{product.description}</p>
                             <ButtonWrapper>
-                                <Button outline white>Read More</Button>
-                                <Button white>Add to Cart</Button>
+                                <ButtonLink href={'/products/'+ product._id} outline={"white"} color={"white"}>Read More</ButtonLink>
+                                <ButtonLink href={''} color={"white"}>Add to Cart</ButtonLink>
                             </ButtonWrapper>
                         </div>
                     </Column>
                     <Column>
-                        <img src="https://rockpondfish.s3.amazonaws.com/1690817156066.jpg" />
+                        <img src={product.images[0]} />
                     </Column>
                 </ColumnsWrapper>
             </Center>

@@ -8,7 +8,7 @@ export default function HomePage({featuredProduct}) {
   return (
     <div>
       <Header></Header>
-      <Featured></Featured>
+      <Featured product={featuredProduct}></Featured>
     </div>
   )
 }
@@ -18,6 +18,6 @@ export async function getServerSideProps(){
   await mongooseConnect()
   const featuredProduct = await Product.findById(featuredProductId)
   return {
-    props: { featuredProduct },
+    props: { featuredProduct: JSON.parse(JSON.stringify(featuredProduct)) },
   }
 }
