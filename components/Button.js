@@ -36,6 +36,10 @@ export const ButtonStyle = css`
         color: #fff;
     `}
 
+    ${props => props.align === "right" && css`
+        float: right;
+    `}
+
 `
 
 export const StyledButton = styled.button`

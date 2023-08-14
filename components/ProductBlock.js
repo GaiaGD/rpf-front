@@ -21,6 +21,11 @@ const Box = styled.div`
 
 const Title = styled.h2`
     font-weight: normal;
+    margin-bottom: 5px;
+`
+
+const Price = styled.p`
+    text-align: end;
 `
 
 export default function ProductBlock({_id, name, description, price, images}){
@@ -32,8 +37,8 @@ export default function ProductBlock({_id, name, description, price, images}){
                 </div>
             </Box>
             <Title>{name}</Title>
-            <Button color={"green"}>Add To Cart</Button>
-            <div>{price}</div>
+            <Price>{price}</Price>
+            <Button color={"green"} align={"right"}>Add To Cart</Button>
         </ProductWrapper>
     )
 }
