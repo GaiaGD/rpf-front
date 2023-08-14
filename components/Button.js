@@ -1,10 +1,11 @@
 import { styled, css } from "styled-components"
+import { primary, white } from "@/lib/colors"
 
 export const ButtonStyle = css`
-    border: 2px solid #064e3b;
+    border: 2px solid ${primary};
     padding: 10px;
     border-radius: 6px;
-    color: #064e3b;
+    color: ${primary};
     cursor: pointer;
     text-decoration: none;
 
@@ -14,26 +15,26 @@ export const ButtonStyle = css`
     `}
 
     ${props => props.color === "white" && !props.outline && css`
-        background-color: #fff;
-        border: 2px solid #fff;
+        background-color: ${white};
+        border: 2px solid ${white};
     `}
     
     ${props => props.color === "white" && props.outline === "white" && css`
-        border: 2px solid #fff;
+        border: 2px solid ${white};
         background-color: transparent;
-        color: #fff;
+        color: ${white};
     `}
 
     ${props => props.color === "green" && !props.outline && css`
-        background-color: #064e3b;
-        border: 2px solid #064e3b;
-        color: #fff;
+        background-color: ${primary};
+        border: 2px solid ${primary};
+        color: ${white};
     `}
 
     ${props => props.color === "green" && props.outline === "green" && css`
-        border: 2px solid #064e3b;
+        border: 2px solid ${primary};
         background-color: transparent;
-        color: #fff;
+        color: ${white};
     `}
 
     ${props => props.align === "right" && css`

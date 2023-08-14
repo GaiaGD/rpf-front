@@ -10,9 +10,11 @@ const ProductsGrid = styled.div`
 `
 
 export default function NewProducts({products}){
-    console.log(products)
     return (
         <Center>
+
+            <h2>New Arrivals</h2>
+
             <ProductsGrid>
                 {products?.length > 0 && products.map(product => (
                     <ProductBlock key={product._id} {...product} />
