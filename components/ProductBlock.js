@@ -1,14 +1,14 @@
+import { useContext } from "react";
+import { CartContext } from "./CartContext";
 import { styled } from "styled-components" 
 import Button from "./Button"
 import Link from "next/link"
 import { primary } from "@/lib/colors"
 
 const ProductWrapper = styled.div`
-
 `
 
 const Box = styled(Link)`
-
 `
 
 const ImgBox = styled.div`
@@ -39,8 +39,11 @@ const Price = styled.p`
 `
 
 export default function ProductBlock({_id, name, description, price, images}){
-    
+
+    const {addProduct} = useContext(CartContext)
+
     const url = "/product/"+ _id
+
     
     return (
         <ProductWrapper>
@@ -53,7 +56,7 @@ export default function ProductBlock({_id, name, description, price, images}){
                 <h2>{name}</h2>
             </Title>
             <Price>${price}</Price>
-            <Button color={"green"} align={"right"}>Add To Cart</Button>
+            <Button onClick={() => addProduct(_id)} color={"green"} align={"right"}>Add To Cart</Button>
         </ProductWrapper>
     )
 }
