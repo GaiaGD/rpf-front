@@ -41,6 +41,11 @@ export const ButtonStyle = css`
         float: right;
     `}
 
+    ${props => props.align === "block" && css`
+        display: block;
+        width: 100%;
+    `}
+
 `
 
 export const StyledButton = styled.button`

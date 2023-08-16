@@ -4,20 +4,29 @@ export const CartContext = createContext({})
 
 export function CartContextProvider({children}){
 
-    const ls = typeof window !== "undefined" ? window.localStorage : null
-    const defaultProducts = ls ? JSON.parse(ls?.getItem('cart')) : []
+    // initialize local storage
+    const lStorage = typeof window !== "undefined" ? window.localStorage : null
 
-    const [cartProducts, setCartProducts] = useState(defaultProducts)
+    // initialize cart
+    const [cartProducts, setCartProducts] = useState([])
 
+    // on first component mount, useEffect checks if there's any product inside local and saves it to the cart
+    useEffect(() => {
+        if (lStorage && lStorage.getItem('cart')){
+            setCartProducts(JSON.parse(lStorage.getItem('cart')))
+        }
+    }, [])
+
+    // every time a product is added to the cart, useEffect adds it to local storage
     useEffect(() => {
         if(cartProducts?.length > 0){
-            ls?.setItem('cart', JSON.stringify(cartProducts))
+            lStorage?.setItem('cart', JSON.stringify(cartProducts))
         }
     }, [cartProducts])
 
+
     function addProduct(productId){
         setCartProducts(prev => [...prev, productId])
-        console.log(cartProducts)
     }
 
     return (
