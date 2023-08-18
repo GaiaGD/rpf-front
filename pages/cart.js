@@ -23,13 +23,14 @@ const ProductInfoCell = styled.td`
 `
 
 const ProductImageBox = styled.div`
-    height: 150px;
+    height: 100px;
     overflow: hidden;
     background-color: #f0f0f0;
     box-shadow: 0 0 10px rgba(0,0,0,.3);
     border-radius: 10px;
     img {
-        width: 100%;
+        min-width: 100%;
+        height: 100%;
     }
 `
 

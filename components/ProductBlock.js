@@ -16,6 +16,8 @@ const ImgBox = styled.div`
     margin: 0;
     height: 150px;
     overflow: hidden;
+    box-shadow: 0 0 10px rgba(0,0,0,.3);
+    border-radius: 10px;
     img {
         width: 100%;
     }

@@ -10,7 +10,9 @@ const StyledTable = styled.table`
         font-size: .8rem;
     }
     td {
-        border-top: 1px solid rgba(0, 0, 0, .1)
+        width: 33%;
+        border-top: 1px solid rgba(0, 0, 0, .1);
+        padding-right: 10px;
     }
 `
 
