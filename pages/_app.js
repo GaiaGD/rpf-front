@@ -1,10 +1,8 @@
 import { CartContextProvider } from "@/components/CartContext"
 import { createGlobalStyle } from "styled-components"
+import { Bricolage_Grotesque } from 'next/font/google'
 
 const GlobalStyles = createGlobalStyle`
-
-  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,300&display=swap');
-
   body {
     padding: 0;
     margin: 0;
@@ -17,9 +15,9 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyles />
-      <CartContextProvider>
-        <Component {...pageProps} />
-      </CartContextProvider>
+          <CartContextProvider>
+            <Component {...pageProps} />
+          </CartContextProvider>
     </>
   )
 }

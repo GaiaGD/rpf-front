@@ -91,8 +91,12 @@ export default function CartPage(){
                                                 </ProductImageBox>
                                                 {product.name}
                                             </ProductInfoCell>
-                                            <td>{cartProducts.filter(id => id === product._id).length}</td>
-                                            <td>{product.price}</td>
+                                            <td>
+                                                <Button>+</Button>
+                                                {cartProducts.filter(id => id === product._id).length}
+                                                <Button>-</Button>
+                                            </td>
+                                            <td>${cartProducts.filter(id => id === product._id).length * product.price}</td>
                                         </tr>
                                         
                                     ))}
