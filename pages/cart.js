@@ -6,6 +6,7 @@ import { styled } from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "@/components/CartContext";
 import axios from "axios";
+import { nanoid } from 'nanoid'
 
 const ColumnWrapper = styled.div`
     display: grid;
@@ -34,10 +35,15 @@ const ProductImageBox = styled.div`
     }
 `
 
+const QuantityLabel = styled.span`
+    padding: 0 6px;
+`
+
 export default function CartPage(){
 
-    const {cartProducts} = useContext(CartContext)
+    const {cartProducts, addProduct, removeProduct} = useContext(CartContext)
 
+    // this only shows what products are in the cart, not the quantity of each one
     const [productsInCart, setProductsInCart] = useState([])
 
     useEffect(() => {
@@ -50,6 +56,14 @@ export default function CartPage(){
         }
 
     }, [cartProducts])
+
+    function moreOfThisProduct(id){
+        addProduct(id)
+    }
+
+    function lessOfThisProduct(id){
+        removeProduct(id)
+    }
 
 
     return (
@@ -84,7 +98,7 @@ export default function CartPage(){
 
                                 <tbody>
                                     {productsInCart.map(product => (
-                                        <tr>
+                                        <tr key={nanoid()}>
                                             <ProductInfoCell>
                                                 <ProductImageBox>
                                                     <img src={product.images[0]} />
@@ -92,9 +106,15 @@ export default function CartPage(){
                                                 {product.name}
                                             </ProductInfoCell>
                                             <td>
-                                                <Button>+</Button>
+                                                <QuantityLabel>
+                                                    <Button onClick={() => lessOfThisProduct(product._id)} color={"green"}>-</Button>
+                                                </QuantityLabel>
+
                                                 {cartProducts.filter(id => id === product._id).length}
-                                                <Button>-</Button>
+
+                                                <QuantityLabel>
+                                                    <Button onClick={() => moreOfThisProduct(product._id)} color={"green"}>+</Button>
+                                                </QuantityLabel>
                                             </td>
                                             <td>${cartProducts.filter(id => id === product._id).length * product.price}</td>
                                         </tr>
