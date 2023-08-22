@@ -42,7 +42,6 @@ const QuantityLabel = styled.span`
 export default function CartPage(){
 
     const {cartProducts, addProduct, removeProduct} = useContext(CartContext)
-
     // this only shows what products are in the cart, not the quantity of each one
     const [productsInCart, setProductsInCart] = useState([])
 
