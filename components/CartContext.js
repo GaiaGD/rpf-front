@@ -19,8 +19,8 @@ export function CartContextProvider({children}){
 
     // every time a product is added to the cart, useEffect adds it to local storage
     useEffect(() => {
-        console.log("update!")
-        if(cartProducts?.length > 0){
+
+        if(cartProducts?.length >= 0){
             lStorage?.setItem('cart', JSON.stringify(cartProducts))
         }
     }, [cartProducts])
@@ -31,16 +31,9 @@ export function CartContextProvider({children}){
     }
 
     function removeProduct(productId){
-
-        const idToRemove = (id) => id === productId
-        let indexOfProductToRemove = cartProducts.findIndex(idToRemove)
-        // cartProducts.splice(indexOfProductToRemove, 1)
-        let updatedCart = cartProducts
-        setCartProducts(prev => prev.filter((product) => product.i != indexOfProductToRemove))
-        console.log(cartProducts)
-
+        let indexOfProductToRemove = cartProducts.indexOf(productId)
+        setCartProducts(prev => [...prev].filter((product, i) => i != indexOfProductToRemove))
     }
-
     return (
         <CartContext.Provider value={{cartProducts, setCartProducts, addProduct, removeProduct}}>
             {children}

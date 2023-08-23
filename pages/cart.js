@@ -46,7 +46,9 @@ export default function CartPage(){
     const [productsInCart, setProductsInCart] = useState([])
 
     useEffect(() => {
-        if(cartProducts.length > 0){
+        console.log(cartProducts.length)
+        console.log(productsInCart.length)
+        if(cartProducts.length >= 0){
             axios.post('/api/cart', {ids: cartProducts})
             .then(response => {
                 setProductsInCart(response.data)
