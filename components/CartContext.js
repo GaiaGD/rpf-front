@@ -31,8 +31,15 @@ export function CartContextProvider({children}){
     }
 
     function removeProduct(productId){
-        let indexOfProductToRemove = cartProducts.indexOf(productId)
-        setCartProducts(prev => [...prev].filter((product, i) => i != indexOfProductToRemove))
+
+        setCartProducts(prev => {
+            let indexOfProductToRemove = prev.indexOf(productId)
+            // if index exists
+            if(indexOfProductToRemove !== -1){
+                return prev.filter((product, index) => index != indexOfProductToRemove)
+            }
+            return prev
+        })
     }
     return (
         <CartContext.Provider value={{cartProducts, setCartProducts, addProduct, removeProduct}}>

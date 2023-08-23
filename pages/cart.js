@@ -46,8 +46,7 @@ export default function CartPage(){
     const [productsInCart, setProductsInCart] = useState([])
 
     useEffect(() => {
-        console.log(cartProducts.length)
-        console.log(productsInCart.length)
+
         if(cartProducts.length >= 0){
             axios.post('/api/cart', {ids: cartProducts})
             .then(response => {
@@ -64,6 +63,13 @@ export default function CartPage(){
 
     function lessOfThisProduct(id){
         removeProduct(id)
+    }
+
+    let cartTotal = 0
+
+    for (const productId of cartProducts){
+        const price = productsInCart.find(product => product._id === productId)?.price || 0
+        cartTotal += price
     }
 
 
@@ -121,6 +127,11 @@ export default function CartPage(){
                                         </tr>
                                         
                                     ))}
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td>${cartTotal}</td>
+                                    </tr>
                                 </tbody>
 
                             </Table>
