@@ -19,9 +19,10 @@ export function CartContextProvider({children}){
 
     // every time a product is added to the cart, useEffect adds it to local storage
     useEffect(() => {
-
-        if(cartProducts?.length >= 0){
+        if(cartProducts?.length > 0){
             lStorage?.setItem('cart', JSON.stringify(cartProducts))
+        } else if (cartProducts?.length === 0) {
+            lStorage?.setItem('cart', cartProducts)
         }
     }, [cartProducts])
 
@@ -41,6 +42,7 @@ export function CartContextProvider({children}){
             return prev
         })
     }
+
     return (
         <CartContext.Provider value={{cartProducts, setCartProducts, addProduct, removeProduct}}>
             {children}

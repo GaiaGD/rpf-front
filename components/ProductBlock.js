@@ -8,9 +8,6 @@ import { primary } from "@/lib/colors"
 const ProductWrapper = styled.div`
 `
 
-const Box = styled(Link)`
-`
-
 const ImgBox = styled.div`
     padding: 0;
     margin: 0;
