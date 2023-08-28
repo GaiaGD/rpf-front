@@ -47,9 +47,11 @@ const DoubleFields = styled.div`
 
 export default function CartPage(){
 
-    const {cartProducts, addProduct, removeProduct} = useContext(CartContext)
+    const {cartProducts, addProduct, removeProduct, clearCart} = useContext(CartContext)
     // this only shows what products are in the cart, not the quantity of each one
     const [productsInCart, setProductsInCart] = useState([])
+
+    const [isSuccess, setIsSuccess] = useState(false)
 
     // states for delivery info
     const [firstname, setFirstname] = useState('')
@@ -76,6 +78,16 @@ export default function CartPage(){
 
     }, [cartProducts])
 
+    useEffect(() => {
+        if (typeof window === 'undefined'){
+            return
+        }
+        if (window?.location.href.includes('success')){
+            setIsSuccess(true)
+            clearCart()
+        }
+    })
+
     function moreOfThisProduct(id){
         addProduct(id)
     }
@@ -84,12 +96,47 @@ export default function CartPage(){
         removeProduct(id)
     }
 
+    async function goToPayment(){
+        const response = await axios.post('/api/checkout', {
+            firstname,
+            lastname,
+            mobilenumber,
+            email,
+            city,
+            address,
+            postcode,
+            state,
+            country,
+            cartProducts, 
+        })
+
+        if(response.data.url){
+            window.location = response.data.url
+        }
+    }
+
     // get total price
     let cartTotal = 0
 
     for (const productId of cartProducts){
         const price = productsInCart.find(product => product._id === productId)?.price || 0
         cartTotal += price
+    }
+
+    if (isSuccess){
+        return (
+            <>
+                <Header></Header>
+                <Center>
+                    <ColumnWrapper>
+                        <Box>
+                            <h1>Thank you for your order. Your payment was successful.</h1>
+                            <p>You will receive an email shortly with more info</p>
+                        </Box>
+                    </ColumnWrapper>
+                </Center>
+            </>
+        )
     }
 
 
@@ -162,7 +209,6 @@ export default function CartPage(){
                     {!!cartProducts?.length && (
                         <Box>
                             <h2>Order Information</h2>
-                            <form method="post" action="/api/checkout">
                                 <DoubleFields>
                                     <Input value={firstname}
                                             name="firstname"
@@ -215,8 +261,11 @@ export default function CartPage(){
                                 <input type="hidden"
                                         name="products"
                                         value={cartProducts.join(',')} />
-                                <Button type="submit" color={"green"} align={"block"}>Continue to Payment</Button>
-                            </form>
+                                <Button
+                                        onClick={goToPayment}
+                                        color={"green"}
+                                        align={"block"}>Continue to Payment
+                                </Button>
                         </Box>
                         )}
                 </ColumnWrapper>
