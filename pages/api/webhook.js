@@ -2,6 +2,10 @@ import mongoose from "mongoose";
 import { mongooseConnect } from "@/lib/mongoose";
 const stripe = require('stripe')(process.env.STRIPE_SK);
 
+import { buffer } from "micro";
+
+const endpointSecret = "whsec_0325da25cf9ab0ed70cbe9bd19802ac350c80c5853aa895c0ef4d831600e411d";
+
 export default async function handler(req, res){
     await mongooseConnect()
 
@@ -10,7 +14,7 @@ export default async function handler(req, res){
     let event;
   
     try {
-      event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+      event = stripe.webhooks.constructEvent(await buffer(req), sig, endpointSecret);
     } catch (err) {
       response.status(400).send(`Webhook Error: ${err.message}`);
       return;
@@ -21,6 +25,7 @@ export default async function handler(req, res){
       case 'payment_intent.succeeded':
         const paymentIntentSucceeded = event.data.object;
         // Then define and call a function to handle the event payment_intent.succeeded
+        console.log(paymentIntentSucceeded);
         break;
       // ... handle other event types
       default:
@@ -30,5 +35,7 @@ export default async function handler(req, res){
 }
 
 export const config = {
-    api: {bodyParser: false}
+  api:  {bodyParser: false}
 }
+
+// ready-proper-fine-poise
