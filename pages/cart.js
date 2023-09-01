@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Center from "@/components/Center";
+import Title from "@/components/Title";
 import Button from "@/components/Button";
 import Table from "@/components/Table";
 import Input from "@/components/Input";
@@ -123,10 +124,11 @@ export default function CartPage(){
         cartTotal += price
     }
 
+    // showing after order is completed _____________________________________________________________
     if (isSuccess){
         return (
             <>
-                <Header></Header>
+                <Header/>
                 <Center>
                     <ColumnWrapper>
                         <Box>
@@ -138,6 +140,7 @@ export default function CartPage(){
             </>
         )
     }
+    // _______________________________________________________________________________________________
 
 
     return (
@@ -152,57 +155,60 @@ export default function CartPage(){
                             </div>
                         )}
                         
-                        <h2>Cart</h2>
+
                         {productsInCart?.length > 0 && (
+                            <>
+                                <Title>Cart</Title>
 
-                            <Table>
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            Products
-                                        </th>
-                                        <th>
-                                            Quantity
-                                        </th>
-                                        <th>
-                                            Price
-                                        </th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    {productsInCart.map(product => (
-                                        <tr key={nanoid()}>
-                                            <ProductInfoCell>
-                                                <ProductImageBox>
-                                                    <img src={product.images[0]} />
-                                                </ProductImageBox>
-                                                {product.name}
-                                            </ProductInfoCell>
-                                            <td>
-                                                <QuantityLabel>
-                                                    <Button onClick={() => lessOfThisProduct(product._id)} color={"green"}>-</Button>
-                                                </QuantityLabel>
-
-                                                {cartProducts.filter(id => id === product._id).length}
-
-                                                <QuantityLabel>
-                                                    <Button onClick={() => moreOfThisProduct(product._id)} color={"green"}>+</Button>
-                                                </QuantityLabel>
-                                            </td>
-                                            <td>${cartProducts.filter(id => id === product._id).length * product.price}</td>
+                                <Table>
+                                    
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Products
+                                            </th>
+                                            <th>
+                                                Quantity
+                                            </th>
+                                            <th>
+                                                Price
+                                            </th>
                                         </tr>
-                                        
-                                    ))}
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td>${cartTotal}</td>
-                                    </tr>
-                                </tbody>
+                                    </thead>
 
-                            </Table>
-                        
+                                    <tbody>
+                                        {productsInCart.map(product => (
+                                            <tr key={nanoid()}>
+                                                <ProductInfoCell>
+                                                    <ProductImageBox>
+                                                        <img src={product.images[0]} />
+                                                    </ProductImageBox>
+                                                    {product.name}
+                                                </ProductInfoCell>
+                                                <td>
+                                                    <QuantityLabel>
+                                                        <Button onClick={() => lessOfThisProduct(product._id)} color={"green"}>-</Button>
+                                                    </QuantityLabel>
+
+                                                    {cartProducts.filter(id => id === product._id).length}
+
+                                                    <QuantityLabel>
+                                                        <Button onClick={() => moreOfThisProduct(product._id)} color={"green"}>+</Button>
+                                                    </QuantityLabel>
+                                                </td>
+                                                <td>${cartProducts.filter(id => id === product._id).length * product.price}</td>
+                                            </tr>
+                                            
+                                        ))}
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td>${cartTotal}</td>
+                                        </tr>
+                                    </tbody>
+
+                                </Table>
+                            </>
                         )}
 
                     </Box>

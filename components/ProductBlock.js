@@ -48,7 +48,7 @@ export default function ProductBlock({_id, name, description, price, images}){
         <ProductWrapper>
             <Link href={url}>
                 <ImgBox>
-                    <img src={images[0]} />
+                    <img src={images?.[0]} />
                 </ImgBox>
             </Link>
             <Title href={url}>
