@@ -3,6 +3,15 @@ import Product from "@/models/Product";
 import Center from "@/components/Center";
 import Header from "@/components/Header";
 import Title from "@/components/Title";
+import ProductImages from "@/components/ProductImages";
+import { styled } from "styled-components";
+
+const ColWrapper = styled.div`
+    display: grid;
+    grid-template-columns: .8fr 1.2fr;
+    gap: 40px;
+    margin-top: 40px;
+`
 
 export default function ProductPage({product}){
     
@@ -10,7 +19,17 @@ export default function ProductPage({product}){
         <>
             <Header/>
             <Center>
-                <Title>{product.name}</Title>
+                <ColWrapper>
+
+                <div>
+                    <ProductImages images={product.images} />
+                </div>
+
+                <div>
+                    <Title>{product.name}</Title>
+                </div>
+
+                </ColWrapper>
             </Center>
         </>
     )
