@@ -1,20 +1,28 @@
 import { mongooseConnect } from "@/lib/mongoose";
 import Product from "@/models/Product";
+import { useContext } from "react";
+import { CartContext } from "@/components/CartContext";
 import Center from "@/components/Center";
 import Header from "@/components/Header";
 import Title from "@/components/Title";
 import ProductImages from "@/components/ProductImages";
 import { styled } from "styled-components";
+import Button from "@/components/Button";
 
 const ColWrapper = styled.div`
     display: grid;
-    grid-template-columns: .8fr 1.2fr;
+    grid-template-columns: 1fr;
     gap: 40px;
     margin-top: 40px;
+    @media screen and (min-width: 768px){
+        grid-template-columns: .8fr 1.2fr;
+    }
 `
 
 export default function ProductPage({product}){
-    
+
+    const {addProduct} = useContext(CartContext)
+
     return (
         <>
             <Header/>
@@ -27,6 +35,14 @@ export default function ProductPage({product}){
 
                 <div>
                     <Title>{product.name}</Title>
+                    <div>
+                        <p>{product.description}</p>
+                        <p>${product.price}</p>
+                    </div>
+
+                    <div>
+                        <Button onClick={() => addProduct(product._id)} color={"green"} align={"left"}>Add To Cart</Button>
+                    </div>
                 </div>
 
                 </ColWrapper>

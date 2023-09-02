@@ -12,10 +12,14 @@ import { nanoid } from 'nanoid'
 
 const ColumnWrapper = styled.div`
     display: grid;
-    grid-template-columns: 1.2fr .8fr;
+    grid-template-columns: 1fr;
     gap: 40px;
     margin-top: 40px;
-    padding: 30px;
+    padding: 0;
+    @media screen and (min-width: 768px){
+        grid-template-columns: 1.2fr .8fr;
+        padding: 30px;
+    }
 `
 
 const Box = styled.div`

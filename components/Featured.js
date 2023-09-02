@@ -18,10 +18,23 @@ const Title = styled.h1`
 
 const ColumnsWrapper = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 40px;
     img {
         max-width: 100%;
+        max-height: 200px;
+    }
+    div:nth-child(1){
+        order: 2;
+    }
+    @media screen and (min-width: 768px){
+        grid-template-columns: 1fr 1fr;
+        div:nth-child(1){
+            order: 0;
+        }
+        img {
+            max-width: 100%;
+        }
     }
 `
 

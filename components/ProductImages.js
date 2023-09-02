@@ -17,10 +17,10 @@ margin-top: 10px;
 const ImageButton = styled.div`
 border: 3px solid #aaa;
 border-radius: 4px;
-
 height: 40px;
 padding: 2px;
 cursor: pointer;
+${props => props.active ? `border-color: green` : `border-color: transparent`}
 `
 
 export default function ProductImages({images}){
@@ -32,7 +32,7 @@ export default function ProductImages({images}){
             <Image src={activeImage} />
             <ImageButtons>
                 {images.map(image => (
-                    <ImageButton key={nanoid()} onClick={() => setActiveImage(image)}>
+                    <ImageButton active={image === activeImage} key={nanoid()} onClick={() => setActiveImage(image)}>
                         <Image src={image} alt="" />
                     </ImageButton>
                 ))}
