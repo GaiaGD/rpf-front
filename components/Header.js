@@ -7,7 +7,8 @@ import Burger from "./icons/Burger";
 
 const StyledHeader = styled.header`
     background-color: #064e3b;
-    padding: 
+    position: relative;
+    z-index: 100;
 `
 
 const Logo = styled(Link)`
@@ -79,10 +80,10 @@ export default function Header() {
                     <Logo href={'/'}>RockPondFish</Logo>
 
                     <StyledNav mobileNavActive={mobileNavActive}>
-                        <NavLink href={'/'}>Home</NavLink>
-                        <NavLink href={'/products'}>All products</NavLink>
-                        <NavLink href={'/categories'}>Categories</NavLink>
-                        <NavLink href={'/accounts'}>Accounts</NavLink>
+                        {/* <NavLink href={'/'}>Home</NavLink> */}
+                        {/* <NavLink href={'/products'}>All products</NavLink> */}
+                        {/* <NavLink href={'/categories'}>Categories</NavLink> */}
+                        {/* <NavLink href={'/accounts'}>Accounts</NavLink> */}
                         <NavLink href={'/cart'}>Cart ({cartProducts.length})</NavLink>
                     </StyledNav>
 

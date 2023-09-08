@@ -20,5 +20,8 @@
     "react-dom": "18.2.0",
     "stripe": "^13.3.0",
     "styled-components": "^6.0.7"
+  },
+  "devDependencies": {
+    "file-loader": "^6.2.0"
   }
 }
