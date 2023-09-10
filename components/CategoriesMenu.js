@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 import Center from "./Center";
 import Title from "./Title";
+import Link from "next/link";
 
 // document.documentElement.style.setProperty("--vh", window.innerHeight * 0.01 + 'px')
 // let touchDevice = (navigator.maxTouchPoints || 'ontouchstart' in document.documentElement)
@@ -17,20 +18,6 @@ const Video = styled.video`
 
 export default function CategoriesMenu({categories}){
 
-    // <>
-    //     { touchDevice ?
-    //         <div className="h-[calc(100dvh)] bg-cover bg-center mobileVideo">
-    //             <NavMenu />
-    //         </div>
-    //         :
-    //         <div>
-    //             <video autoPlay muted loop="loop" playsInline>
-    //                     <source src={BgVideo} type="video/mp4" />
-    //             </video>
-    //             <NavMenu />
-    //         </div>
-    //     }
-    // </>
 
     return (
         <div>
@@ -40,8 +27,9 @@ export default function CategoriesMenu({categories}){
             <Center>
                 {/* <Title>Categories</Title> */}
                 {categories.map(cat => {
+                    // console.log(cat._id)
                     return (
-                        <p key={cat._id}>{cat.name}</p>
+                        <Link href={'/categories/' + cat._id} key={cat._id} categories={categories}>{cat.name}</Link>
                     )
                 })}
             </Center>

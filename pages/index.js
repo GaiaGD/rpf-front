@@ -21,10 +21,7 @@ export async function getServerSideProps(){
   const featuredProductId = '64d3a5f7f96bb6011c7b0f37'
   await mongooseConnect()
   const categories = await Category.find()
-  const firstCat = 'Pond Design'
-  const categoryOne = await Category.find({ name: firstCat })
-
-
+  console.log("categories: ", categories)
   const featuredProduct = await Product.findById(featuredProductId)
   const newProducts = await Product.find({}, null, {sort: {"_id": -1}, limit: 10})
   return {
@@ -32,7 +29,7 @@ export async function getServerSideProps(){
       // first parse then stringify: a trick to be used because mongoose models aren't compatible with JSON
       featuredProduct: JSON.parse(JSON.stringify(featuredProduct)),
       newProducts: JSON.parse(JSON.stringify(newProducts)),
-      categories: JSON.parse(JSON.stringify(categories)),
+      categories: JSON.parse(JSON.stringify(categories))
      },
   }
 }
