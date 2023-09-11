@@ -18,16 +18,13 @@ const Video = styled.video`
 
 export default function CategoriesMenu({categories}){
 
-console.log({categories})
     return (
         <div>
             <Video playsInline autoPlay muted loop>
                 <source src='../pond.mp4' type="video/mp4" />
             </Video>
             <Center>
-                {/* <Title>Categories</Title> */}
                 {categories.map(cat => {
-                    // console.log(cat._id)
                     return (
                         <Link href={'/categories/' + cat._id} key={cat._id}>{cat.name}</Link>
                     )
