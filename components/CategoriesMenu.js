@@ -14,6 +14,36 @@ const Video = styled.video`
     position: fixed;
     top: 0;
     left: 0;
+    
+`
+
+const CategoriesGrid = styled.div`
+    width: 100%;
+    height: 100vh;
+    position: relative;
+
+    a {
+        position:absolute;
+        color: white;
+        text-decoration: none;
+        padding: 20px;
+    }
+
+    > :nth-child(1) {
+        top:0;
+        left:0;    
+    }
+    > :nth-child(2) {
+        top:0;
+        right:0;
+    }
+    > :nth-child(3) {
+        bottom:0;
+        left:0;
+    }
+    > :nth-child(4) {
+        bottom:0;
+        right:0;
 `
 
 export default function CategoriesMenu({categories}){
@@ -24,11 +54,13 @@ export default function CategoriesMenu({categories}){
                 <source src='../pond.mp4' type="video/mp4" />
             </Video>
             <Center>
-                {categories.map(cat => {
-                    return (
-                        <Link href={'/categories/' + cat._id} key={cat._id}>{cat.name}</Link>
-                    )
-                })}
+                <CategoriesGrid>
+                    {categories.map(cat => {
+                        return (
+                            <Link href={'/categories/' + cat._id} key={cat._id}>{cat.name}</Link>
+                        )
+                    })}
+                </CategoriesGrid>
             </Center>
         </div>
     )
