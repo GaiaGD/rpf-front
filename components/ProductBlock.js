@@ -11,21 +11,20 @@ const ProductWrapper = styled.div`
 const ImgBox = styled.div`
     padding: 0;
     margin: 0;
-    height: 150px;
+    height: 200px;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0,0,0,.3);
-    border-radius: 10px;
-    img {
-        width: 100%;
-    }
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 `
 
 const Title = styled(Link)`
     text-decoration: none;
-    h2 {
+    h3 {
         font-weight: bold;
         margin: 10px 0;
-        font-size: 22px;
+        font-size: 20px;
         text-decoration: none;
         color: ${primary}
     }
@@ -47,12 +46,11 @@ export default function ProductBlock({_id, name, description, price, images}){
     return (
         <ProductWrapper>
             <Link href={url}>
-                <ImgBox>
-                    <img src={images?.[0]} />
+                <ImgBox style={{backgroundImage: `url(${images?.[0]})`}} >
                 </ImgBox>
             </Link>
             <Title href={url}>
-                <h2>{name}</h2>
+                <h3>{name}</h3>
             </Title>
             <Price>${price}</Price>
             <Button onClick={() => addProduct(_id)} color={"green"} align={"right"}>Add To Cart</Button>

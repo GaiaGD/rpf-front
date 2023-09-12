@@ -52,9 +52,9 @@ const NavLink = styled(Link)`
     display: block;
     color: #aaa;
     text-decoration: none;
-    padding: 10px 0;
+    padding: 10px;
     @media screen and (min-width: 768px){
-        padding: 0;
+        padding: 0 10px;
     }
 `
 
@@ -89,7 +89,8 @@ export default function Header() {
                     <StyledNav mobileNavActive={mobileNavActive}>
                         {/* <NavLink href={'/'}>Home</NavLink> */}
                         <NavLink href={'/products'}>All products</NavLink>
-                        {/* <NavLink href={'/categories'}>Categories</NavLink> */}
+                        <NavLink href={'/contact'}>Contact</NavLink>
+                        <NavLink href={'/about'}>About</NavLink>
                         {/* <NavLink href={'/accounts'}>Accounts</NavLink> */}
                         <NavLink href={'/cart'}>Cart ({cartProducts.length})</NavLink>
                     </StyledNav>

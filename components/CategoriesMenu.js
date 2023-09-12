@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import Center from "./Center";
+import MarginTop from "./MarginTop";
 import Title from "./Title";
 import Link from "next/link";
 
@@ -15,9 +16,7 @@ const Video = styled.video`
 
 const CategoriesGrid = styled.div`
     width: 100%;
-    margin-top: 10vh;
     height: 90vh;
-    position: relative;
     div {
         position:absolute;
         padding: 20px;
@@ -91,17 +90,19 @@ export default function CategoriesMenu({categories}){
                     <img src="../logotype.svg" alt="Rock Fish Pond" />
                     <p>a KoiZilla Company</p>
                 </LogoCenter>
-                <CategoriesGrid>
-                    {categories.map(cat => {
-                        return (
-                            <Bubble key={cat._id}>
-                                <Link href={'/categories/' + cat._id}>
-                                    <p>{cat.name}</p>
-                                </Link>
-                            </Bubble>
-                        )
-                    })}
-                </CategoriesGrid>
+                <MarginTop>
+                    <CategoriesGrid>
+                        {categories.map(cat => {
+                            return (
+                                <Bubble key={cat._id}>
+                                    <Link key={cat._id} href={'/categories/' + cat._id}>
+                                        <p>{cat.name}</p>
+                                    </Link>
+                                </Bubble>
+                            )
+                        })}
+                    </CategoriesGrid>
+                </MarginTop>
             </Center>
         </div>
     )

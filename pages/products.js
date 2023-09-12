@@ -1,6 +1,7 @@
 import { mongooseConnect } from "@/lib/mongoose";
 import Product from "@/models/Product";
 import { styled } from "styled-components"
+import MarginTop from "@/components/MarginTop";
 import Center from "@/components/Center"
 import Header from "@/components/Header"
 import ProductsGrid from "@/components/ProductsGrid";
@@ -10,10 +11,12 @@ export default function ProductsPage({products}){
     return (
         <>
             <Header/>
-            <Center>
-                <Title>All Products</Title>
-                <ProductsGrid products={products} />
-            </Center>
+            <MarginTop>
+                <Center>
+                    <Title>All Products</Title>
+                    <ProductsGrid products={products} />
+                </Center>
+            </MarginTop>
         </>
     )
 }

@@ -1,12 +1,11 @@
 import { styled } from "styled-components"
 
 
-const Title = styled.h1`
+const ProductTitle = styled.h1`
     font-size: 2em;
     margin: 0;
     padding: 20px 0;
     font-weight: normal;
-    text-align: center;
 `
 
-export default Title;
+export default ProductTitle;

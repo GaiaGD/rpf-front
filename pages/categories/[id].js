@@ -1,6 +1,7 @@
 import { mongooseConnect } from "@/lib/mongoose";
 import Category from "@/models/Category";
 import Product from "@/models/Product";
+import MarginTop from "@/components/MarginTop";
 import Center from "@/components/Center";
 import Header from "@/components/Header";
 import Title from "@/components/Title";
@@ -10,12 +11,12 @@ export default function CategoryPage({category, categoryProducts}){
   return (
       <>
         <Header></Header>
-        <Center>
-          <Title>{category.name}</Title>
-          <ProductsGrid products={categoryProducts}>
-
-          </ProductsGrid>
-        </Center>
+        <MarginTop>
+          <Center>
+            <Title>{category.name}</Title>
+            <ProductsGrid products={categoryProducts} />
+          </Center>
+        </MarginTop>
       </>
   )
 }
