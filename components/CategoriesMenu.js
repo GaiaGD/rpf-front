@@ -10,6 +10,7 @@ const Video = styled.video`
     position: fixed;
     top: 0;
     left: 0;
+    filter:brightness(40%);
 `
 
 const CategoriesGrid = styled.div`
@@ -24,8 +25,8 @@ const CategoriesGrid = styled.div`
         margin: 30px 0;
         text-align: center;
         border-radius: 50%;
-        height: 50px;
-        width: 50px;
+        height: 70px;
+        width: 70px;
         @media screen and (min-width: 768px){
             height: 15vh;
             width: 15vh;
@@ -33,6 +34,9 @@ const CategoriesGrid = styled.div`
         a {
             text-decoration: none;
             color: white;
+            p {
+                font-size: 25px;
+            }
         }
     }
     
@@ -61,11 +65,18 @@ const Bubble = styled.div`
 
 const LogoCenter = styled.div`
     position: absolute;
+    height: 30vh;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
     color: white;
+    img {
+        height: 100%;
+    }
+    p {
+        margin: 10px;
+    }
 `
 
 export default function CategoriesMenu({categories}){
@@ -77,16 +88,16 @@ export default function CategoriesMenu({categories}){
             </Video>
             <Center>
                 <LogoCenter>
-                    <div>
-                        <h1>Rock fish Pond</h1>
-                        <p>a KoiZilla Company</p>
-                    </div>
+                    <img src="../logotype.svg" alt="Rock Fish Pond" />
+                    <p>a KoiZilla Company</p>
                 </LogoCenter>
                 <CategoriesGrid>
                     {categories.map(cat => {
                         return (
                             <Bubble key={cat._id}>
-                                <Link href={'/categories/' + cat._id}>{cat.name}</Link>
+                                <Link href={'/categories/' + cat._id}>
+                                    <p>{cat.name}</p>
+                                </Link>
                             </Bubble>
                         )
                     })}

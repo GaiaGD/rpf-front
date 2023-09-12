@@ -15,15 +15,16 @@ const StyledHeader = styled.header`
 `
 
 const Logo = styled(Link)`
-    color: #fff;
-    text-decoration: none;
+    img {
+        height: 50px;
+    }
 `
 
 const Wrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 0;
+    padding: 10px 0;
 `
 
 const StyledNav = styled.nav`
@@ -81,7 +82,9 @@ export default function Header() {
         <StyledHeader>
             <Center>
                 <Wrapper>
-                    <Logo href={'/'}>RockPondFish</Logo>
+                    <Logo href={'/'}>
+                        <img src="../logo.svg"></img>
+                    </Logo>
 
                     <StyledNav mobileNavActive={mobileNavActive}>
                         {/* <NavLink href={'/'}>Home</NavLink> */}
