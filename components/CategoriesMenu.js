@@ -3,10 +3,6 @@ import Center from "./Center";
 import Title from "./Title";
 import Link from "next/link";
 
-// document.documentElement.style.setProperty("--vh", window.innerHeight * 0.01 + 'px')
-// let touchDevice = (navigator.maxTouchPoints || 'ontouchstart' in document.documentElement)
-// console.log(touchDevice)
-
 const Video = styled.video`
     object-fit: cover;
     width: 100vw;
@@ -14,21 +10,32 @@ const Video = styled.video`
     position: fixed;
     top: 0;
     left: 0;
-    
 `
 
 const CategoriesGrid = styled.div`
     width: 100%;
-    height: 100vh;
+    margin-top: 10vh;
+    height: 90vh;
     position: relative;
-
-    a {
+    div {
         position:absolute;
-        color: white;
-        text-decoration: none;
         padding: 20px;
+        border: solid white 3px;
+        margin: 30px 0;
+        text-align: center;
+        border-radius: 50%;
+        height: 50px;
+        width: 50px;
+        @media screen and (min-width: 768px){
+            height: 15vh;
+            width: 15vh;
+        }
+        a {
+            text-decoration: none;
+            color: white;
+        }
     }
-
+    
     > :nth-child(1) {
         top:0;
         left:0;    
@@ -46,6 +53,21 @@ const CategoriesGrid = styled.div`
         right:0;
 `
 
+const Bubble = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+
+const LogoCenter = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+`
+
 export default function CategoriesMenu({categories}){
 
     return (
@@ -54,10 +76,18 @@ export default function CategoriesMenu({categories}){
                 <source src='../pond.mp4' type="video/mp4" />
             </Video>
             <Center>
+                <LogoCenter>
+                    <div>
+                        <h1>Rock fish Pond</h1>
+                        <p>a KoiZilla Company</p>
+                    </div>
+                </LogoCenter>
                 <CategoriesGrid>
                     {categories.map(cat => {
                         return (
-                            <Link href={'/categories/' + cat._id} key={cat._id}>{cat.name}</Link>
+                            <Bubble key={cat._id}>
+                                <Link href={'/categories/' + cat._id}>{cat.name}</Link>
+                            </Bubble>
                         )
                     })}
                 </CategoriesGrid>

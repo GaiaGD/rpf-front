@@ -7,7 +7,10 @@ import Burger from "./icons/Burger";
 
 const StyledHeader = styled.header`
     background-color: #064e3b;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     z-index: 100;
 `
 
@@ -18,6 +21,7 @@ const Logo = styled(Link)`
 
 const Wrapper = styled.div`
     display: flex;
+    align-items: center;
     justify-content: space-between;
     padding: 20px 0;
 `
@@ -27,12 +31,12 @@ const StyledNav = styled.nav`
     background-color: #064e3b;
     gap: 10px;
     position: fixed;
-    top: 50px;
+    top: 70px;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 50%;
-    padding: 50px 20px 20px;
+    height: 100%;
+    padding: 20px 20px 0;
     transition-property: all;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
@@ -81,7 +85,7 @@ export default function Header() {
 
                     <StyledNav mobileNavActive={mobileNavActive}>
                         {/* <NavLink href={'/'}>Home</NavLink> */}
-                        {/* <NavLink href={'/products'}>All products</NavLink> */}
+                        <NavLink href={'/products'}>All products</NavLink>
                         {/* <NavLink href={'/categories'}>Categories</NavLink> */}
                         {/* <NavLink href={'/accounts'}>Accounts</NavLink> */}
                         <NavLink href={'/cart'}>Cart ({cartProducts.length})</NavLink>

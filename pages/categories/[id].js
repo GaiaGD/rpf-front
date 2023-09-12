@@ -7,7 +7,6 @@ import Title from "@/components/Title";
 import ProductsGrid from "@/components/ProductsGrid";
 
 export default function CategoryPage({category, categoryProducts}){
-  console.log(categoryProducts)
   return (
       <>
         <Header></Header>

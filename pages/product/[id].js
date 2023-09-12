@@ -57,12 +57,10 @@ export async function getServerSideProps(context){
     await mongooseConnect()
 
     const {id}  = context.query
-    console.log(id)
 
     // it's the same as writing "const id = context.query.id"
 
     const product = await Product.findById(id)
-    console.log("test prod", product)
     return {
       props: {
         // first parse then stringify: a trick to be used because mongoose models aren't compatible with JSON
