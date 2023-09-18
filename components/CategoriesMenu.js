@@ -11,7 +11,10 @@ const Video = styled.video`
     position: fixed;
     top: 0;
     left: 0;
-    filter:brightness(40%);
+    filter:brightness(30%);
+    @media screen and (min-width: 768px){
+        filter:brightness(40%);
+    }
 `
 
 const CategoriesGrid = styled.div`
@@ -80,6 +83,8 @@ const LogoCenter = styled.div`
 
 export default function CategoriesMenu({categories}){
 
+    console.log(categories)
+
     return (
         <div>
             <Video playsInline autoPlay muted loop>
@@ -94,7 +99,7 @@ export default function CategoriesMenu({categories}){
                     <CategoriesGrid>
                         {categories.map(cat => {
                             return (
-                                <Bubble key={cat._id}>
+                                <Bubble key={cat._id} properties={cat.properties}>
                                     <Link key={cat._id} href={'/categories/' + cat._id}>
                                         <p>{cat.name}</p>
                                     </Link>

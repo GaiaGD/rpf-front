@@ -37,6 +37,7 @@ export default function ProductPage({product}){
                     <div>
                         <ProductTitle>{product.name}</ProductTitle>
                         <div>
+                            <p>{product.category}</p>
                             <p>{product.description}</p>
                             <p>${product.price}</p>
                         </div>

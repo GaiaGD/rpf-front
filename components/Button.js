@@ -8,6 +8,7 @@ export const ButtonStyle = css`
     color: ${primary};
     cursor: pointer;
     text-decoration: none;
+    font-family: 'Bricolage Grotesque', sans-serif;
 
     ${props => props.large && css`
         font-size:1.2rem;

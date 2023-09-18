@@ -5,6 +5,9 @@ import Featured from "@/components/Featured";
 import CategoriesMenu from "@/components/CategoriesMenu";
 
 export default function HomePage({featuredProduct, categories}) {
+
+  console.log(categories)
+
   return (
     <div>
       <Header></Header>

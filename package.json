@@ -16,6 +16,7 @@
     "mongoose": "^7.4.2",
     "nanoid": "^4.0.2",
     "next": "13.4.13",
+    "next-google-fonts": "^2.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "stripe": "^13.3.0",
