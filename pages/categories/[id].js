@@ -6,6 +6,7 @@ import MarginTop from "@/components/MarginTop";
 import Center from "@/components/Center";
 import Header from "@/components/Header";
 import Title from "@/components/Title";
+import Filter from "@/components/Filter"
 import ProductsGrid from "@/components/ProductsGrid";
 import { useState } from "react";
 
@@ -16,15 +17,25 @@ const Properties = styled.div`
     justify-content: center;
 `
 
-const SelectStyled = styled.div`
-    border: 1px solid black;
-    padding: 20px;
+const SelectStyled = styled.select`
+    border: 1px solid #064e3b;
+    padding: 10px;
+    border-radius: 50px;
+`
+
+const CatContainer = styled.div`
+  padding: 0 10px;
+`
+
+const StyledLabel = styled.label`
+  padding-right: 5px;
 `
 
 export default function CategoryPage({category, categoryProducts}){
 
   const [catProperties, setCatProperties] = useState(category.properties)
-  console.log(catProperties)
+
+  const [selectedCategory, setSelectedCategory] = useState()
 
   return (
       <>
@@ -32,26 +43,14 @@ export default function CategoryPage({category, categoryProducts}){
         <MarginTop>
           <Center>
             <Title>{category.name}</Title>
-
             <Properties>
               {catProperties.map(property => {
                 return (
-                  <div key={property.name}>
-                    <label for="pet-select">{property.name}</label>
+                  <CatContainer key={property.name}>
 
-                    <select>
+                    <Filter property={property}></Filter>
 
-                        {property.values.map(value => {
-                          return (
-                            <option key={value} value={value}>{value}</option>
-                            )
-                        }
-
-                      )}
-
-                    </select>
-
-                  </div>
+                  </CatContainer>
                 )
               }
                 
