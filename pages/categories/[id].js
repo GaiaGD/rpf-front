@@ -6,7 +6,7 @@ import MarginTop from "@/components/MarginTop";
 import Center from "@/components/Center";
 import Header from "@/components/Header";
 import Title from "@/components/Title";
-import Filter from "@/components/Filter"
+import FilterButton from "@/components/FilterButton"
 import ProductsGrid from "@/components/ProductsGrid";
 import { useState } from "react";
 
@@ -35,8 +35,6 @@ export default function CategoryPage({category, categoryProducts}){
 
   const [catProperties, setCatProperties] = useState(category.properties)
 
-  const [selectedCategory, setSelectedCategory] = useState()
-
   return (
       <>
         <Header></Header>
@@ -47,9 +45,7 @@ export default function CategoryPage({category, categoryProducts}){
               {catProperties.map(property => {
                 return (
                   <CatContainer key={property.name}>
-
-                    <Filter property={property}></Filter>
-
+                    <FilterButton property={property}></FilterButton>
                   </CatContainer>
                 )
               }
@@ -68,7 +64,6 @@ export default function CategoryPage({category, categoryProducts}){
 export async function getServerSideProps(context){
 
     await mongooseConnect()
-
     const {id}  = context.query
 
     // it's the same as writing "const id = context.query.id"

@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { styled } from "styled-components"
+import { useRouter } from 'next/router';
 
 const ButtonFilter = styled.div`
     div {
@@ -24,21 +25,31 @@ const DropdownStyled = styled.div`
     margin-top: 5px;
     position: absolute;
     background-color: #d2e6d4;
+    border: 1px solid #064e3b;
     border-radius: 25px;
     padding: 10px 30px;
     box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+    p {
+        padding: 5px 0;
+    }
 `
 
 const AppliedFilted = styled.div`
     background-color: #d2e6d4;
 `
 
-export default function Filter({property}){
-
-    console.log(property.values)
+export default function FilterButton({property}){
 
     const [propertyChosen, setPropertyChosen] = useState(property.name)
     const [show, setShow] = useState(false)
+    console.log(propertyChosen)
+
+    const router = useRouter()
+    const query = { ...router.query.id }
+    // console.log("test ", query)
+
+    // router.push({ query, pathname: '/filter' })
+
 
     return (
         <div>

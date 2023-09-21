@@ -83,8 +83,6 @@ const LogoCenter = styled.div`
 
 export default function CategoriesMenu({categories}){
 
-    console.log(categories)
-
     return (
         <div>
             <Video playsInline autoPlay muted loop>
