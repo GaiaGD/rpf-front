@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { styled } from "styled-components"
 import { useRouter } from 'next/router';
 
@@ -39,16 +39,19 @@ const AppliedFilted = styled.div`
 `
 
 export default function FilterButton({property}){
-
+    // but first check if something was selected already on refresh
     const [propertyChosen, setPropertyChosen] = useState(property.name)
     const [show, setShow] = useState(false)
-    console.log(propertyChosen)
 
     const router = useRouter()
-    const query = { ...router.query.id }
-    // console.log("test ", query)
 
-    // router.push({ query, pathname: '/filter' })
+    function handleFilterClick(value){
+        let propertyType = property.name
+        setPropertyChosen(value)
+        setShow(!show)
+        const query = { ...router.query, propertyType, value };
+        router.push({ query })
+    }
 
 
     return (
@@ -57,25 +60,25 @@ export default function FilterButton({property}){
                 {propertyChosen === property.name ?
                     <div>
                         <p>{propertyChosen}</p>
-                            <svg onClick={() => setShow(!show)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                            </svg>
+                        <svg onClick={() => setShow(!show)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                        </svg>
                     </div>
                 :
                     <AppliedFilted>
                         <p>{propertyChosen}</p>
-                            <svg onClick={() => setPropertyChosen(property.name)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <svg onClick={() => setPropertyChosen(property.name)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
+                        </svg>
                     </AppliedFilted>
 
                 }
-
             </ButtonFilter>
+
             <DropdownStyled style={{ display: show ? 'block' : 'none' }}>
                 {property.values.map(value => {
                     return (
-                        <div key={value} value={value} onClick={() => {setPropertyChosen(value); setShow(!show)}}>
+                        <div key={value} value={value} onClick={() => {handleFilterClick(value)}}>
                             <div>
                                 <p>{value}</p>
                             </div>

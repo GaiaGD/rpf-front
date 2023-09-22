@@ -8,7 +8,8 @@ import Header from "@/components/Header";
 import Title from "@/components/Title";
 import FilterButton from "@/components/FilterButton"
 import ProductsGrid from "@/components/ProductsGrid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from 'next/router';
 
 
 const Properties = styled.div`
@@ -34,6 +35,40 @@ const StyledLabel = styled.label`
 export default function CategoryPage({category, categoryProducts}){
 
   const [catProperties, setCatProperties] = useState(category.properties)
+  const [categoryProductsState, setCategoryProductsState] = useState(categoryProducts)
+
+  const router = useRouter()
+  const { query } = router;
+
+  // filter the products shown picking up from url
+
+  const propertyToFilter = router.query.propertyType
+  const valueToFilter = router.query.value
+
+  // fix filter of properties
+  useEffect(() => {
+    console.log("changed url")
+    
+    const { propertyType, value } = query;
+    if (propertyType) {
+
+      const filteredProducts = categoryProducts.filter((product) => {
+        for (const property in product.properties) {
+          if (property === propertyType && product.properties[propertyType] == value) {
+            return true;
+          }
+        }
+        return false;
+      })
+
+      setCategoryProductsState(filteredProducts);
+    } else {
+      setCategoryProductsState(categoryProducts);
+
+    }
+
+  }, [query, categoryProducts])
+
 
   return (
       <>
@@ -53,7 +88,7 @@ export default function CategoryPage({category, categoryProducts}){
               )}
             </Properties>
 
-            <ProductsGrid products={categoryProducts} />
+            <ProductsGrid products={categoryProductsState} />
           </Center>
         </MarginTop>
       </>
@@ -79,3 +114,19 @@ export async function getServerSideProps(context){
        },
     }
   }
+
+
+
+  // if(propertyTypeFilter){
+  //   setCategoryProductsState(prev => {
+  //     return prev.filter((prod) => {
+  //           for(const propertyRequested in prod.properties){
+  //             if(propertyRequested === filtersApplied.propertyType && prod.properties[propertyRequested] == filterValue){
+  //               return true
+  //             }
+  //           }
+  //           return false
+  //         })
+  //       }
+  //   )
+  // }
