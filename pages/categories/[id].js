@@ -34,40 +34,41 @@ const StyledLabel = styled.label`
 
 export default function CategoryPage({category, categoryProducts}){
 
+  const router = useRouter()
+
   const [catProperties, setCatProperties] = useState(category.properties)
   const [categoryProductsState, setCategoryProductsState] = useState(categoryProducts)
+  const [queryUrl, setQueryUrl] = useState()
 
-  const router = useRouter()
-  const { query } = router;
 
-  // filter the products shown picking up from url
 
-  const propertyToFilter = router.query.propertyType
-  const valueToFilter = router.query.value
-
-  // fix filter of properties
   useEffect(() => {
-    console.log("changed url")
-    
-    const { propertyType, value } = query;
-    if (propertyType) {
+    const { id, ...rest } = router.query;
+    setQueryUrl(rest);
+  }, [router.query])
 
+
+  useEffect(() => {
+
+    if(queryUrl){
+
+    // all product filtered here:
       const filteredProducts = categoryProducts.filter((product) => {
-        for (const property in product.properties) {
-          if (property === propertyType && product.properties[propertyType] == value) {
-            return true;
-          }
-        }
-        return false;
+
+
+            const arrayProductProperties = (Object.entries(product.properties)).flat()
+            const arrayFilter = (Object.entries(queryUrl)).flat()
+
+            const results = arrayFilter.every(v => arrayProductProperties.includes(v))
+            return results
       })
 
       setCategoryProductsState(filteredProducts);
-    } else {
-      setCategoryProductsState(categoryProducts);
 
     }
 
-  }, [query, categoryProducts])
+  }, [queryUrl])
+
 
 
   return (
@@ -117,16 +118,51 @@ export async function getServerSideProps(context){
 
 
 
-  // if(propertyTypeFilter){
-  //   setCategoryProductsState(prev => {
-  //     return prev.filter((prod) => {
-  //           for(const propertyRequested in prod.properties){
-  //             if(propertyRequested === filtersApplied.propertyType && prod.properties[propertyRequested] == filterValue){
-  //               return true
-  //             }
-  //           }
-  //           return false
-  //         })
+  // useEffect(() => {
+  //   const { id, ...rest } = router.query;
+  //   setQueryUrl(rest);
+  // }, [router.query])
+
+
+  // useEffect(() => {
+
+  //   let filteredProducts = []
+
+  //   for(const query in queryUrl){
+      
+  //     console.log("filtered inside the loop before", filteredProducts)
+
+  //     filteredProducts = categoryProducts.filter((product) => {
+  //       for (const property in product.properties) {
+  //         if(product.properties[property] === queryUrl[query]){
+  //           return true
+  //         }
   //       }
-  //   )
-  // }
+  //     })
+  //     console.log("filtered inside the loop", filteredProducts)
+
+  //     setCategoryProductsState(filteredProducts)
+
+  //   }
+  // }, [queryUrl])
+//  __________________________________________________________________
+
+      // const { propertyType, value } = query
+
+
+    // if (propertyType) {
+
+    //   const filteredProducts = categoryProducts.filter((product) => {
+    //     for (const property in product.properties) {
+    //       if (property === propertyType && product.properties[propertyType] == value) {
+    //         return true;
+    //       }
+    //     }
+    //     return false;
+    //   })
+
+    //   setCategoryProductsState(filteredProducts);
+    // } else {
+    //   setCategoryProductsState(categoryProducts);
+
+    // }

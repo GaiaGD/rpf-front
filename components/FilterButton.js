@@ -39,17 +39,24 @@ const AppliedFilted = styled.div`
 `
 
 export default function FilterButton({property}){
+
+    const router = useRouter()
+
     // but first check if something was selected already on refresh
     const [propertyChosen, setPropertyChosen] = useState(property.name)
     const [show, setShow] = useState(false)
-
-    const router = useRouter()
+    const [queryUrl, setQueryUrl] = useState({ ...router.query})
 
     function handleFilterClick(value){
         let propertyType = property.name
         setPropertyChosen(value)
         setShow(!show)
-        const query = { ...router.query, propertyType, value };
+
+
+        const query = { ...router.query, [propertyType]: value }
+
+        // sos
+        // const query = { ...router.query, propertyType, value }
         router.push({ query })
     }
 
@@ -58,9 +65,9 @@ export default function FilterButton({property}){
         <div>
             <ButtonFilter>
                 {propertyChosen === property.name ?
-                    <div>
+                    <div onClick={() => setShow(!show)} >
                         <p>{propertyChosen}</p>
-                        <svg onClick={() => setShow(!show)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                         </svg>
                     </div>
