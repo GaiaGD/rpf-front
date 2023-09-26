@@ -52,7 +52,7 @@ const SearchResults = styled.div`
             border: 1px solid ${primary};
     }
     a div {
-        padding: 20px;
+        padding: 0 20px;
         p {
             margin: 0;
             font-weight: bold;
@@ -72,16 +72,18 @@ export default function ProductsPage({products, categories}){
         setSearchInput(e.target.value)
       };
       
-        const filteredProducts = allProducts.filter((el) => {
+        const filteredProducts = allProducts.filter((product) => {
             //if no input the return the original
             if (searchInput === '') {
                 return;
             }
             //return the item which contains the user input
             else {
-                return el.name.toLowerCase().includes(searchInput)
+                return product.name.toUpperCase().includes(searchInput.toUpperCase())
             }
         })
+
+    console.log(filteredProducts)
 
     return (
         <>
