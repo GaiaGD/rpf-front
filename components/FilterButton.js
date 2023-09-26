@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { styled } from "styled-components"
+import { primary, white } from "@/lib/colors"
 import { useRouter } from 'next/router';
 
 const ButtonFilter = styled.div`
@@ -11,7 +12,7 @@ const ButtonFilter = styled.div`
         align-items: center;
     }
     border-radius: 50px;
-    border: 1px solid green;
+    border: 1px solid ${primary};
     p {
         margin: 0;
     }
@@ -35,30 +36,50 @@ const DropdownStyled = styled.div`
 `
 
 const AppliedFilted = styled.div`
-    background-color: #d2e6d4;
+    background-color: ${primary};
+    color: ${white}
 `
 
 export default function FilterButton({property}){
 
     const router = useRouter()
-
-    // but first check if something was selected already on refresh
+    const query = { ...router.query}
     const [propertyChosen, setPropertyChosen] = useState(property.name)
     const [show, setShow] = useState(false)
-    const [queryUrl, setQueryUrl] = useState({ ...router.query})
+
+    const [params, setParams] = useState('')
+
+    // but first check if something was selected already on refresh
+    useEffect(() => {
+        // gathered filter from url
+        const { id, ...rest } = router.query
+
+        // if there are filters, the matching button will be activated (setting the property)
+        for (const propertyUrl in rest) {
+            if(property.name === propertyUrl){
+                setPropertyChosen(rest[propertyUrl])
+            }
+          }
+
+    }, [router.query])
+    
+
 
     function handleFilterClick(value){
         let propertyType = property.name
         setPropertyChosen(value)
         setShow(!show)
-
-
         const query = { ...router.query, [propertyType]: value }
-
-        // sos
-        // const query = { ...router.query, propertyType, value }
         router.push({ query })
     }
+
+    function clearFilter(property){
+        setPropertyChosen(property)
+        delete query[property];
+        router.push({ query })
+    }
+
+
 
 
     return (
@@ -74,7 +95,7 @@ export default function FilterButton({property}){
                 :
                     <AppliedFilted>
                         <p>{propertyChosen}</p>
-                        <svg onClick={() => setPropertyChosen(property.name)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <svg onClick={() => clearFilter(property.name)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </AppliedFilted>

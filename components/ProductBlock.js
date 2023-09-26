@@ -11,7 +11,10 @@ const ProductWrapper = styled.div`
 const ImgBox = styled.div`
     padding: 0;
     margin: 0;
-    height: 200px;
+    @media screen and (min-width: 768px){
+        height: 200px;
+    }
+    height: 120px;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0,0,0,.3);
     background-size: cover;

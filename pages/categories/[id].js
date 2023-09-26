@@ -6,7 +6,8 @@ import MarginTop from "@/components/MarginTop";
 import Center from "@/components/Center";
 import Header from "@/components/Header";
 import Title from "@/components/Title";
-import FilterButton from "@/components/FilterButton"
+import FilterButton from "@/components/FilterButton";
+import SearchBar from "@/components/SearchBar";
 import ProductsGrid from "@/components/ProductsGrid";
 import { useEffect, useState } from "react";
 import { useRouter } from 'next/router';
@@ -44,7 +45,7 @@ export default function CategoryPage({category, categoryProducts}){
 
   useEffect(() => {
     const { id, ...rest } = router.query;
-    setQueryUrl(rest);
+    setQueryUrl(rest)
   }, [router.query])
 
 
@@ -54,7 +55,6 @@ export default function CategoryPage({category, categoryProducts}){
 
     // all product filtered here:
       const filteredProducts = categoryProducts.filter((product) => {
-
 
             const arrayProductProperties = (Object.entries(product.properties)).flat()
             const arrayFilter = (Object.entries(queryUrl)).flat()
@@ -77,6 +77,7 @@ export default function CategoryPage({category, categoryProducts}){
         <MarginTop>
           <Center>
             <Title>{category.name}</Title>
+            <SearchBar></SearchBar>
             <Properties>
               {catProperties.map(property => {
                 return (
