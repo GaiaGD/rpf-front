@@ -7,7 +7,6 @@ import Center from "@/components/Center";
 import Header from "@/components/Header";
 import Title from "@/components/Title";
 import FilterButton from "@/components/FilterButton";
-import SearchBar from "@/components/SearchBar";
 import ProductsGrid from "@/components/ProductsGrid";
 import { useEffect, useState } from "react";
 import { useRouter } from 'next/router';
@@ -42,7 +41,7 @@ export default function CategoryPage({category, categoryProducts}){
   const [queryUrl, setQueryUrl] = useState()
 
 
-
+  // filters __________________________________________________________________________________________
   useEffect(() => {
     const { id, ...rest } = router.query;
     setQueryUrl(rest)
@@ -50,24 +49,21 @@ export default function CategoryPage({category, categoryProducts}){
 
 
   useEffect(() => {
-
     if(queryUrl){
 
     // all product filtered here:
       const filteredProducts = categoryProducts.filter((product) => {
-
             const arrayProductProperties = (Object.entries(product.properties)).flat()
             const arrayFilter = (Object.entries(queryUrl)).flat()
-
             const results = arrayFilter.every(v => arrayProductProperties.includes(v))
             return results
       })
 
       setCategoryProductsState(filteredProducts);
-
     }
 
   }, [queryUrl])
+  // filters __________________________________________________________________________________________
 
 
 
@@ -77,7 +73,6 @@ export default function CategoryPage({category, categoryProducts}){
         <MarginTop>
           <Center>
             <Title>{category.name}</Title>
-            <SearchBar></SearchBar>
             <Properties>
               {catProperties.map(property => {
                 return (
@@ -116,54 +111,3 @@ export async function getServerSideProps(context){
        },
     }
   }
-
-
-
-  // useEffect(() => {
-  //   const { id, ...rest } = router.query;
-  //   setQueryUrl(rest);
-  // }, [router.query])
-
-
-  // useEffect(() => {
-
-  //   let filteredProducts = []
-
-  //   for(const query in queryUrl){
-      
-  //     console.log("filtered inside the loop before", filteredProducts)
-
-  //     filteredProducts = categoryProducts.filter((product) => {
-  //       for (const property in product.properties) {
-  //         if(product.properties[property] === queryUrl[query]){
-  //           return true
-  //         }
-  //       }
-  //     })
-  //     console.log("filtered inside the loop", filteredProducts)
-
-  //     setCategoryProductsState(filteredProducts)
-
-  //   }
-  // }, [queryUrl])
-//  __________________________________________________________________
-
-      // const { propertyType, value } = query
-
-
-    // if (propertyType) {
-
-    //   const filteredProducts = categoryProducts.filter((product) => {
-    //     for (const property in product.properties) {
-    //       if (property === propertyType && product.properties[propertyType] == value) {
-    //         return true;
-    //       }
-    //     }
-    //     return false;
-    //   })
-
-    //   setCategoryProductsState(filteredProducts);
-    // } else {
-    //   setCategoryProductsState(categoryProducts);
-
-    // }
